@@ -1,5 +1,5 @@
 import { Image } from "antd";
-import image from "../../assets/404PageNotFound.png";
+import image from "/404PageNotFound.png";
 
 const PageNotFound = () => {
     return <Image src={image} preview={false} />;

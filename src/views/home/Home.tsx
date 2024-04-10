@@ -1,8 +1,8 @@
-import { Button, Input, Modal, Select, Image, Alert, message } from "antd";
-import "./Home.scss";
-import { useEffect, useState } from "react";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
-import LoadingGif from "../../assets/loading.gif";
+import { Button, Image, Input, Modal, Select, message } from "antd";
+import { useEffect, useState } from "react";
+import LoadingGif from "/loadingSmall.gif";
+import "./Home.scss";
 
 const Home = () => {
     const [name, setName] = useState(localStorage.getItem("name") || "");
@@ -28,7 +28,7 @@ const Home = () => {
         if (isAbleToContinue()) {
             setLoad(true);
             setTimeout(() => {
-                window.location.href = "/flight/" + flight;
+                window.location.href = `/flight/${mode}/${flight}`;
             }, Math.round(Math.random() * 3000) + 2000);
         } else {
             error();
@@ -48,12 +48,16 @@ const Home = () => {
 
     return (
         <div className="Home">
-            <h1>Your Name:</h1>
-            <Input title="Name" onChange={handleNameChange} value={name} />
-
-            <h1>Select Flight:</h1>
+            <Input
+                title="Name"
+                onChange={handleNameChange}
+                value={name}
+                placeholder="Name"
+            />
+            <br />
 
             <Select
+                placeholder={"Flight"}
                 showSearch
                 onChange={(value) => setFlight(value)}
                 style={{ width: "100%" }}
@@ -108,7 +112,7 @@ const Home = () => {
 
                 <Image src={LoadingGif} preview={false} />
 
-                <h2>Loading...</h2>
+                <h2>Connecting...</h2>
             </Modal>
 
             {contextHolder}
