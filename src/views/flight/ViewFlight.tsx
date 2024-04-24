@@ -5,7 +5,7 @@ import Cell from "../../components/Cell";
 import db from "../../db";
 
 const NUM_OF_ROWS: number = 50;
-const LETTERS = ["A", "B", "C", "", "D", "E", "F", "G", "", "H", "J", "K"];
+const LETTERS = ["A", "B", "C", "", "D", "E", "H", "", "J", "K", "L"];
 
 const Flight = () => {
     const { flight } = useParams<string>();
