@@ -5,8 +5,21 @@ import Cell from "../../components/Cell";
 import db from "../../db";
 
 const NUM_OF_ROWS: number = 65;
-const BIG_PLANE_LETTERS = ["A", "B", "C", "", "D", "E", "H", "", "J", "K", "L"];
-const SMALL_PLANE_LETTERS = ["A", "B", "C", "D", "E", "F"];
+const BIG_PLANE_LETTERS = [
+  "A",
+  "B",
+  "C",
+  "",
+  "D",
+  "E",
+  "F",
+  "G",
+  "",
+  "H",
+  "J",
+  "K",
+];
+const SMALL_PLANE_LETTERS = ["A", "B", "C", "", "D", "E", "F"];
 
 const Flight = () => {
   const { flight } = useParams<string>();
