@@ -27,9 +27,12 @@ const Home = () => {
   const handleLoad = () => {
     if (isAbleToContinue()) {
       setLoad(true);
-      setTimeout(() => {
-        window.location.href = `/flight/${mode}/${flight}`;
-      }, Math.round(Math.random() * 3000) + 2000);
+      setTimeout(
+        () => {
+          window.location.href = `/flight/${mode}/${flight}`;
+        },
+        Math.round(Math.random() * 3000) + 2000,
+      );
     } else {
       error();
     }
@@ -62,10 +65,19 @@ const Home = () => {
         onChange={(value) => setFlight(value)}
         style={{ width: "100%" }}
         options={[
-          { value: "TLV-LONDON", label: "TLV → LONDON" },
-          { value: "LONDON-HOUSTON", label: "LONDON → HOUSTON" },
-          { value: "HOUSTON-LONDON", label: "HOUSTON → LONDON" },
-          { value: "LONDON-TLV", label: "LONDON → TLV" },
+          { value: "TLV-EWR-LY025", label: "TLV → NEW YORK(EWR) - LY025" },
+          { value: "TLV-JFK-LY001", label: "TLV → NEW YORK(JFK) - LY001" },
+          { value: "LGA-IAH-DL2109", label: "NEW YORK → HOUSTON" },
+          {
+            value: "IAH-LGA-DL2099",
+            label: "HOUSTON → NEW YORK(LGA) - DL2099",
+          },
+          {
+            value: "IAH-LGA-DL2140",
+            label: "HOUSTON → NEW YORK(LGA) - DL2140",
+          },
+          { value: "EWR-TLV-LY026", label: "NEW YORK(EWR) → TLV - LY026" },
+          { value: "JFK-TLV-LY008", label: "NEW YORK(JFK) → TLV - LY008" },
         ]}
       />
 

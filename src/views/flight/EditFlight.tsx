@@ -5,21 +5,8 @@ import "./EditFlight.scss";
 import db from "../../db";
 
 const NUM_OF_ROWS: number = 65;
-const BIG_PLANE_LETTERS = [
-  "A",
-  "B",
-  "C",
-  "",
-  "D",
-  "E",
-  "F",
-  "G",
-  "",
-  "H",
-  "J",
-  "K",
-];
-const SMALL_PLANE_LETTERS = ["A", "B", "C", "", "D", "E", "F"];
+const BIG_PLANE_LETTERS = ["A", "B", "C", "", "D", "F", "G", "", "H", "J", "K"];
+const SMALL_PLANE_LETTERS = ["A", "B", "", "C", "D", "E"];
 
 const Flight = () => {
   const { flight } = useParams<string>();
@@ -30,8 +17,8 @@ const Flight = () => {
   const isSeatAcceptable = () => {
     return (
       (flight?.includes("TLV")
-        ? SMALL_PLANE_LETTERS
-        : BIG_PLANE_LETTERS
+        ? BIG_PLANE_LETTERS
+        : SMALL_PLANE_LETTERS
       ).includes(letter) && seat !== null
     );
   };
@@ -70,8 +57,8 @@ const Flight = () => {
           onChange={(value) => setLetter(value)}
           style={{ width: "100%" }}
           options={(flight?.includes("TLV")
-            ? SMALL_PLANE_LETTERS
-            : BIG_PLANE_LETTERS
+            ? BIG_PLANE_LETTERS
+            : SMALL_PLANE_LETTERS
           )
             .filter((l) => !!l)
             .map((l) => {

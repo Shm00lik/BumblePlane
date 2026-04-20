@@ -5,21 +5,8 @@ import Cell from "../../components/Cell";
 import db from "../../db";
 
 const NUM_OF_ROWS: number = 65;
-const BIG_PLANE_LETTERS = [
-  "A",
-  "B",
-  "C",
-  "",
-  "D",
-  "E",
-  "F",
-  "G",
-  "",
-  "H",
-  "J",
-  "K",
-];
-const SMALL_PLANE_LETTERS = ["A", "B", "C", "", "D", "E", "F"];
+const BIG_PLANE_LETTERS = ["A", "B", "C", "", "D", "F", "G", "", "H", "J", "K"];
+const SMALL_PLANE_LETTERS = ["A", "B", "", "C", "D", "E"];
 
 const Flight = () => {
   const { flight } = useParams<string>();
@@ -52,7 +39,7 @@ const Flight = () => {
       let rowNumber: string = data.seat.slice(1);
 
       const index = newSortedData.findIndex(
-        (item) => item.rowNumber === rowNumber
+        (item) => item.rowNumber === rowNumber,
       );
 
       if (index !== -1) {
@@ -86,7 +73,7 @@ const Flight = () => {
   }, []);
 
   const columns: TableProps["columns"] = (
-    flight?.includes("TLV") ? SMALL_PLANE_LETTERS : BIG_PLANE_LETTERS
+    flight?.includes("TLV") ? BIG_PLANE_LETTERS : SMALL_PLANE_LETTERS
   ).map((letter) => {
     if (!letter)
       return {
