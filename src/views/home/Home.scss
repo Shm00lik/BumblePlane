@@ -1,44 +1,86 @@
 .Home {
-  max-width: 420px;
-  margin: auto;
+  min-height: 100vh;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  background: linear-gradient(180deg, #f5faff, #ffffff);
+}
+
+/* ✈️ Header */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
 
   h1 {
-    text-align: center;
-    margin-bottom: 0;
+    margin: 0;
+    font-size: 28px;
   }
 
-  .subtitle {
-    text-align: center;
+  p {
+    margin: 5px 0 0;
     color: #888;
-    margin-bottom: 10px;
   }
+}
 
-  .modeButtons {
+/* 🎫 Card */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* form field */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+  }
+}
+
+/* segmented control */
+.segmented {
+  display: flex;
+  gap: 10px;
+
+  button {
+    flex: 1;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+
     display: flex;
-    gap: 10px;
-
-    button {
-      height: 48px;
-      font-size: 16px;
-    }
+    justify-content: center;
+    gap: 6px;
+    align-items: center;
   }
 
-  .goButton {
-    margin-top: 10px;
-    height: 52px;
-    font-size: 18px;
-    border-radius: 12px;
+  button.active {
+    background: #1677ff;
+    color: white;
+    border-color: #1677ff;
   }
+}
 
-  .loadingModal {
-    text-align: center;
-
-    h2 {
-      margin-bottom: 20px;
-    }
-  }
+/* CTA button */
+.cta {
+  height: 48px;
+  font-size: 16px;
+  border-radius: 12px;
 }

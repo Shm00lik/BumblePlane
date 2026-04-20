@@ -1,27 +1,92 @@
-.EditFlight {
-  max-width: 400px;
+.BoardingPage {
+  display: flex;
+  max-width: 900px;
   margin: auto;
-  padding: 20px;
-  text-align: center;
+  margin-top: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  background: white;
+}
 
-  .picker {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
+/* ✈️ LEFT SIDE */
+.BoardingLeft {
+  flex: 1;
+  background: linear-gradient(135deg, #2f6bff, #6ea8ff);
+  color: white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    .ant-select,
-    .ant-input-number {
-      flex: 1;
-    }
-  }
-
-  .preview {
+  .planeGraphic {
+    font-size: 55px;
     margin-bottom: 15px;
   }
 
-  button {
-    height: 50px;
-    font-size: 16px;
-    border-radius: 10px;
+  .route {
+    text-align: center;
   }
+
+  .routeRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .airport {
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  p {
+    margin: 0;
+    font-size: 10px;
+    opacity: 0.8;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+
+  .flightNumber {
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.9;
+    letter-spacing: 2px;
+  }
+}
+
+/* 🎫 RIGHT SIDE */
+.BoardingRight {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  h2 {
+    text-align: center;
+    letter-spacing: 2px;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 12px;
+    color: #666;
+  }
+}
+
+.preview {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
 }
