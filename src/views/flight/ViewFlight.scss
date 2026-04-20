@@ -1,0 +1,81 @@
+.FlightView {
+  padding: 10px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+
+.plane {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blockWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.block {
+  display: flex;
+  gap: 6px;
+}
+
+/* aisle numbers */
+.rowNumber {
+  font-size: 10px;
+  color: #999;
+  min-width: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* spacing between seat groups (aisle feel) */
+.blockWrapper:not(:last-child) {
+  margin-right: 10px;
+}
+
+.seat {
+  width: 30px;
+  height: 40px;
+  border-radius: 8px;
+  background: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.seat:hover {
+  transform: scale(1.1);
+  background: #e6f4ff;
+}
+
+.seatLabel {
+  font-size: 9px;
+  color: #666;
+}
+
+/* YOUR seat */
+.seat.me {
+  background: #1677ff;
+  color: white;
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(22, 119, 255, 0.8);
+}
+
+/* nearby seats */
+.seat.near {
+  background: #e6f4ff;
+  box-shadow: 0 0 6px rgba(22, 119, 255, 0.4);
+}

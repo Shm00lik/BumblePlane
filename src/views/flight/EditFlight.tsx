@@ -1,92 +1,54 @@
-import { Button, Flex, InputNumber, Select } from "antd";
-import { useEffect, useState } from "react";
+import { Button, Select, InputNumber } from "antd";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./EditFlight.scss";
 import db from "../../db";
 
-const NUM_OF_ROWS: number = 65;
-const BIG_PLANE_LETTERS = ["A", "B", "C", "", "D", "F", "G", "", "H", "J", "K"];
-const SMALL_PLANE_LETTERS = ["A", "B", "", "C", "D", "E"];
+const BIG = ["A", "B", "C", "", "D", "F", "G", "", "H", "J", "K"];
+const SMALL = ["A", "B", "", "C", "D", "E"];
 
-const Flight = () => {
-  const { flight } = useParams<string>();
+const EditFlight = () => {
+  const { flight } = useParams();
 
-  const [letter, setLetter] = useState<string>("");
+  const [letter, setLetter] = useState("");
   const [seat, setSeat] = useState<number | null>(1);
 
-  const isSeatAcceptable = () => {
-    return (
-      (flight?.includes("TLV")
-        ? BIG_PLANE_LETTERS
-        : SMALL_PLANE_LETTERS
-      ).includes(letter) && seat !== null
-    );
+  const letters = (flight?.includes("TLV") ? BIG : SMALL).filter(Boolean);
+
+  const submit = async () => {
+    await db.collection(flight || "").add({
+      seat: letter + seat,
+      flight,
+      name: localStorage.getItem("name"),
+    });
+
+    window.location.href = "/";
   };
-
-  const updateSeat = async () => {
-    if (!isSeatAcceptable()) {
-      return;
-    }
-
-    await db
-      .collection(flight || "")
-      .add({
-        seat: letter + seat,
-        flight: flight,
-        name: localStorage.getItem("name") || "",
-      })
-      .then(() => {
-        window.location.href = "/";
-      });
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("name") == undefined) {
-      window.location.href = "/";
-    }
-  }, []);
 
   return (
-    <div className="Base">
-      <h1>Fill Your Seat:</h1>
+    <div className="EditFlight">
+      <h1>בחר מושב ✈️</h1>
 
-      <Flex justify={"center"} align={"center"}>
+      <div className="picker">
         <Select
-          placeholder={"Letter"}
-          showSearch
-          onChange={(value) => setLetter(value)}
-          style={{ width: "100%" }}
-          options={(flight?.includes("TLV")
-            ? BIG_PLANE_LETTERS
-            : SMALL_PLANE_LETTERS
-          )
-            .filter((l) => !!l)
-            .map((l) => {
-              return { value: l, label: l };
-            })}
+          placeholder="Letter"
+          options={letters.map((l) => ({ value: l, label: l }))}
+          onChange={setLetter}
         />
 
-        <InputNumber
-          required
-          min={1}
-          max={NUM_OF_ROWS}
-          step={1}
-          defaultValue={1}
-          onChange={(value) => setSeat(value)}
-        />
-      </Flex>
+        <InputNumber min={1} max={65} value={seat} onChange={setSeat} />
+      </div>
 
-      <br />
-      <br />
-
-      {isSeatAcceptable() && <h1>Your Seat: {letter + seat}</h1>}
-      {isSeatAcceptable() && (
-        <Button size="large" onClick={updateSeat}>
-          Let's GO
-        </Button>
+      {letter && seat && (
+        <>
+          <h2 className="preview">Seat: {letter + seat}</h2>
+          <Button type="primary" size="large" block onClick={submit}>
+            Save Seat
+          </Button>
+        </>
       )}
     </div>
   );
 };
 
-export default Flight;
+export default EditFlight;

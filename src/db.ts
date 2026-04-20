@@ -58,7 +58,6 @@ class Collection {
     }
 
     async add(data: DocumentData) {
-        console.log("ASDASD111");
         await addDoc(this.ref, data);
     }
 

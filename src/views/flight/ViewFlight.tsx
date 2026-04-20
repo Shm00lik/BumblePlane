@@ -1,98 +1,122 @@
-import { Table, TableProps } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cell from "../../components/Cell";
+import "./ViewFlight.scss";
 import db from "../../db";
 
-const NUM_OF_ROWS: number = 65;
-const BIG_PLANE_LETTERS = ["A", "B", "C", "", "D", "F", "G", "", "H", "J", "K"];
-const SMALL_PLANE_LETTERS = ["A", "B", "", "C", "D", "E"];
+const NUM_OF_ROWS = 65;
 
-const Flight = () => {
-  const { flight } = useParams<string>();
+const BIG_LAYOUT = ["ABC", "DFG", "HJK"];
+const SMALL_LAYOUT = ["AB", "CDE"];
 
-  // database is like:
-  // [
-  //     { name: "yoav", seat: "A27" },
-  //     { name: "rooni", seat: "B27" },
-  // ]
+const ViewFlight = () => {
+  const { flight } = useParams();
+  const [data, setData] = useState<{ [seat: string]: string }>({});
+  const [mySeat, setMySeat] = useState<string | null>(null);
 
-  const [data, setData] = useState<{ [key: string]: string }[]>([]);
+  const myName = localStorage.getItem("name");
 
-  const [sortedData, setSortedData] = useState<{ [key: string]: string }[]>([]);
+  const layout = flight?.includes("TLV") ? BIG_LAYOUT : SMALL_LAYOUT;
 
-  const blankRows = () => {
-    let rows = [];
-
-    for (let i = 1; i <= NUM_OF_ROWS; i++) {
-      rows.push({ rowNumber: i.toString(), key: i.toString() });
-    }
-
-    return rows;
-  };
+  // 🔥 flatten layout into real seat order (NO AISLE CONNECTION)
+  const seatOrder = layout.flatMap((block) => block.split(""));
 
   useEffect(() => {
-    let newSortedData = blankRows();
+    const fetch = async () => {
+      const res = await db.collection(flight || "").get();
 
-    data.forEach((data: { [key: string]: string }) => {
-      let column: string = data.seat.slice(0, 1).toLowerCase();
-      let rowNumber: string = data.seat.slice(1);
+      let map: { [seat: string]: string } = {};
+      let foundMySeat: string | null = null;
 
-      const index = newSortedData.findIndex(
-        (item) => item.rowNumber === rowNumber,
-      );
+      res.forEach((d: any) => {
+        map[d.seat] = d.name;
 
-      if (index !== -1) {
-        newSortedData[index] = {
-          ...newSortedData[index],
-          [column]: data.name,
-        };
-      } else {
-        newSortedData.push({
-          [column]: data.name,
-          rowNumber: rowNumber,
-          key: rowNumber,
-        });
+        if (d.name === myName) {
+          foundMySeat = d.seat;
+        }
+      });
+
+      setData(map);
+      setMySeat(foundMySeat);
+
+      // 🔥 AUTOSCROLL
+      if (foundMySeat) {
+        const el = document.getElementById(foundMySeat);
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-    });
-
-    setSortedData(newSortedData);
-  }, [data]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await db
-        .collection(flight || "")
-        .where("flight", "==", flight)
-        .get();
-
-      setData(data);
     };
 
-    fetchData();
+    fetch();
   }, []);
 
-  const columns: TableProps["columns"] = (
-    flight?.includes("TLV") ? BIG_PLANE_LETTERS : SMALL_PLANE_LETTERS
-  ).map((letter) => {
-    if (!letter)
-      return {
-        title: "",
-        dataIndex: "rowNumber",
-        key: "rowNumber",
-        align: "center",
-      };
+  const getSeatType = (seatId: string) => {
+    if (!mySeat) return "";
 
-    return {
-      title: letter,
-      dataIndex: letter.toLowerCase(),
-      key: letter.toLowerCase(),
-      align: "center",
-      render: (name: string) => <Cell name={name}></Cell>,
-    };
-  });
+    const myRow = parseInt(mySeat.slice(1));
+    const myCol = mySeat[0];
 
-  return <Table dataSource={sortedData} columns={columns} pagination={false} />;
+    const row = parseInt(seatId.slice(1));
+    const col = seatId[0];
+
+    if (seatId === mySeat) return "me";
+
+    const isNearbyRow = Math.abs(row - myRow) <= 1;
+
+    // 🔥 FIXED COLUMN LOGIC
+    const myIndex = seatOrder.indexOf(myCol);
+    const colIndex = seatOrder.indexOf(col);
+
+    const isNearbyCol = Math.abs(colIndex - myIndex) <= 1;
+
+    if (isNearbyRow && isNearbyCol) return "near";
+
+    return "";
+  };
+
+  const renderSeat = (letter: string, row: number) => {
+    const seatId = `${letter}${row}`;
+    const name = data[seatId];
+    const type = getSeatType(seatId);
+
+    return (
+      <div
+        id={seatId} // 🔥 needed for scroll
+        className={`seat ${type}`}
+        key={seatId}
+      >
+        <Cell name={name} />
+        <span className="seatLabel">{letter}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="FlightView">
+      <h2>✈️ Seat Map</h2>
+
+      <div className="plane">
+        {Array.from({ length: NUM_OF_ROWS }, (_, i) => {
+          const row = i + 1;
+
+          return (
+            <div className="row" key={row}>
+              {layout.map((block, idx) => (
+                <div className="blockWrapper" key={idx}>
+                  <div className="block">
+                    {block.split("").map((letter) => renderSeat(letter, row))}
+                  </div>
+
+                  {idx < layout.length - 1 && (
+                    <div className="rowNumber">{row}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
-export default Flight;
+export default ViewFlight;

@@ -1,32 +1,20 @@
 import { Popover, Avatar } from "antd";
-import { useState } from "react";
 
-interface CellProps {
-    name: string;
-}
+const getColor = (name: string) => {
+  const colors = ["#1677ff", "#52c41a", "#fa8c16", "#eb2f96", "#722ed1"];
+  return colors[name.length % colors.length];
+};
 
-const Cell = ({ name }: CellProps) => {
-    const [open, setOpen] = useState(false);
+const Cell = ({ name }: { name: string }) => {
+  if (!name) return null;
 
-    const handleOpenChange = (newOpen: boolean) => {
-        setOpen(newOpen);
-    };
-
-    if (!name) {
-        return <></>;
-    }
-
-    return (
-        <Popover
-            content={name}
-            title={name}
-            trigger="click"
-            open={open}
-            onOpenChange={handleOpenChange}
-        >
-            <Avatar size={"small"} style={{ backgroundColor: "blue" }} />
-        </Popover>
-    );
+  return (
+    <Popover content={name}>
+      <Avatar size="small" style={{ backgroundColor: getColor(name) }}>
+        {name[0].toUpperCase()}
+      </Avatar>
+    </Popover>
+  );
 };
 
 export default Cell;
