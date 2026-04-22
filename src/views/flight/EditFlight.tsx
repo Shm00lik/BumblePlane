@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "./EditFlight.scss";
 import db from "../../db";
 
+const VERY_BIG = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"];
 const BIG = ["A", "B", "C", "D", "F", "G", "H", "J", "K"];
 const SMALL = ["A", "B", "C", "D", "E"];
 
@@ -13,7 +14,15 @@ const EditFlight = () => {
   const [letter, setLetter] = useState("");
   const [seat, setSeat] = useState<number | null>(1);
 
-  const letters = flight?.includes("TLV") ? BIG : SMALL;
+  const getLetters = () => {
+    if (flight?.includes("TLV")) {
+      return flight?.includes("EWR") ? VERY_BIG : BIG;
+    }
+
+    return SMALL;
+  };
+
+  const letters = getLetters();
 
   const parts = (flight || "").split("-");
   const from = parts[0];

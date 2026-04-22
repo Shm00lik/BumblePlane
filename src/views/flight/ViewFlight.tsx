@@ -6,6 +6,7 @@ import db from "../../db";
 
 const NUM_OF_ROWS = 65;
 
+const VERY_BIG_LAYOUT = ["ABC", "DEFG", "HJK"];
 const BIG_LAYOUT = ["ABC", "DFG", "HJK"];
 const SMALL_LAYOUT = ["AB", "CDE"];
 
@@ -16,7 +17,15 @@ const ViewFlight = () => {
 
   const myName = localStorage.getItem("name");
 
-  const layout = flight?.includes("TLV") ? BIG_LAYOUT : SMALL_LAYOUT;
+  const getLayout = () => {
+    if (flight?.includes("TLV")) {
+      return flight?.includes("EWR") ? VERY_BIG_LAYOUT : BIG_LAYOUT;
+    }
+
+    return SMALL_LAYOUT;
+  };
+
+  const layout = getLayout();
 
   // 🔥 flatten layout into real seat order (NO AISLE CONNECTION)
   const seatOrder = layout.flatMap((block) => block.split(""));
