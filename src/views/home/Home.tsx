@@ -11,7 +11,7 @@ const Home = () => {
 
   const handleContinue = () => {
     if (!name || !flight || !mode) {
-      messageApi.error("Fill everything first 🙂");
+      messageApi.error("Please complete all fields ✈️");
       return;
     }
 
@@ -20,15 +20,16 @@ const Home = () => {
 
   return (
     <div className="Home">
-      {/* ✈️ Header */}
-      <div className="header">
-        <h1>✈️ Seat Planner</h1>
-        <p>Find your friends on the plane</p>
+      <div className="sky">
+        <span className="animated_plane">✈️</span>
       </div>
 
-      {/* 🎫 Card */}
-      <div className="card">
+      <div className="header">
+        <h1>✈️ BumblePlane ✈️</h1>
+        <p>Find your seat & friends</p>
+      </div>
 
+      <div className="card">
         <div className="field">
           <label>Your Name</label>
           <Input
@@ -42,17 +43,19 @@ const Home = () => {
         </div>
 
         <div className="field">
-          <label>Select Flight</label>
+          <label>Flight</label>
           <Select
-            placeholder="Choose your flight"
+            placeholder="Select flight"
+            value={flight || undefined}
             onChange={setFlight}
             options={[
-              { value: "TLV-EWR-LY025", label: "TLV → EWR (LY025)" },
-              { value: "TLV-JFK-LY001", label: "TLV → JFK (LY001)" },
-              { value: "LGA-IAH-DL2109", label: "NY → Houston" },
-              { value: "IAH-LGA-DL2099", label: "Houston → NY" },
-              { value: "EWR-TLV-LY026", label: "EWR → TLV" },
-              { value: "JFK-TLV-LY008", label: "JFK → TLV" },
+              { value: "TLV-EWR-LY025", label: "TLV → New York(EWR) - LY025" },
+              { value: "TLV-JFK-LY001", label: "TLV → New York(JFK) - LY001" },
+              { value: "LGA-IAH-DL2109", label: "New York → Houston - DL2109" },
+              { value: "IAH-LGA-DL2099", label: "Houston → New York - DL2099" },
+              { value: "IAH-LGA-DL2140", label: "Houston → New York - DL2140" },
+              { value: "EWR-TLV-LY026", label: "New York(EWR) → TLV - LY026" },
+              { value: "JFK-TLV-LY008", label: "New York(JFK) → TLV - LY008" },
             ]}
           />
         </div>

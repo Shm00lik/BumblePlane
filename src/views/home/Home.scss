@@ -1,86 +1,160 @@
 .Home {
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: 20px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(180deg, #f5faff, #ffffff);
+
+  background: #0d0f14;
+  color: #e5e7eb;
 }
 
-/* ✈️ Header */
+/* HEADER */
 .header {
   text-align: center;
   margin-bottom: 20px;
-
-  h1 {
-    margin: 0;
-    font-size: 28px;
-  }
-
-  p {
-    margin: 5px 0 0;
-    color: #888;
-  }
 }
 
-/* 🎫 Card */
+.header .plane {
+  font-size: 40px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #f5d409;
+}
+
+.header p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* CARD */
 .card {
   width: 100%;
   max-width: 420px;
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  background: #111522;
+  border: 1px solid #2a2f3a;
+
+  opacity: 0.95;
+
+  border-radius: 14px;
+  padding: 18px;
 
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
-/* form field */
+/* FIELD */
 .field {
   display: flex;
   flex-direction: column;
   gap: 6px;
-
-  label {
-    font-size: 12px;
-    color: #666;
-    font-weight: 500;
-  }
 }
 
-/* segmented control */
+.field label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* INPUTS */
+input,
+.ant-select-selector {
+  background: #0f121a !important;
+  border: 1px solid #2a2f3a !important;
+  color: white !important;
+}
+
+/* SEGMENTED */
 .segmented {
   display: flex;
   gap: 10px;
-
-  button {
-    flex: 1;
-    border: 1px solid #ddd;
-    background: #fafafa;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.2s;
-    font-size: 14px;
-
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    align-items: center;
-  }
-
-  button.active {
-    background: #1677ff;
-    color: white;
-    border-color: #1677ff;
-  }
 }
 
-/* CTA button */
+.segmented button {
+  flex: 1;
+
+  padding: 10px;
+  border-radius: 10px;
+
+  border: 1px solid #2a2f3a;
+  background: #0f121a;
+  color: #cbd5e1;
+
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  align-items: center;
+}
+
+.segmented button.active {
+  background: #f5d409;
+  color: #111;
+  border-color: #f5d409;
+}
+
+/* CTA */
 .cta {
-  height: 48px;
-  font-size: 16px;
+  margin-top: 4px;
+  height: 46px;
+
+  background: #f5d409 !important;
+  border: none !important;
+  color: #111 !important;
+
+  font-weight: 600;
   border-radius: 12px;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+
+  overflow: hidden;
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+/* keep UI above */
+.Home > *:not(.sky) {
+  position: relative;
+  z-index: 1;
+}
+
+.animated_plane {
+  position: absolute;
+  left: -10%;
+  bottom: -10%;
+
+  font-size: 100px;
+  opacity: 0.25;
+
+  animation: flyDiagonal 5s ease-in infinite;
+}
+
+/* ✈️ bottom-left → top-right */
+@keyframes flyDiagonal {
+  0% {
+    opacity: 0.1;
+    transform: translate(-60%, -10%);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  80% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(100dvw, -100dvh);
+  }
 }

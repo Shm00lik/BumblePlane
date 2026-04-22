@@ -13,9 +13,8 @@ const EditFlight = () => {
   const [letter, setLetter] = useState("");
   const [seat, setSeat] = useState<number | null>(1);
 
-  const letters = (flight?.includes("TLV") ? BIG : SMALL);
+  const letters = flight?.includes("TLV") ? BIG : SMALL;
 
-  // ✈️ parse flight info
   const parts = (flight || "").split("-");
   const from = parts[0];
   const to = parts[1];
@@ -28,7 +27,7 @@ const EditFlight = () => {
       name: localStorage.getItem("name") || "",
     });
 
-    window.location.href = "/";
+    window.location.href = `/flight/view/${flight}`;
   };
 
   useEffect(() => {
@@ -39,13 +38,12 @@ const EditFlight = () => {
 
   return (
     <div className="BoardingPage">
-
-      {/* ✈️ LEFT SIDE */}
+      {/* ✈️ LEFT SIDE (BOARDING PASS VISUAL) */}
       <div className="BoardingLeft">
         <div className="planeGraphic">✈️</div>
 
         <div className="route">
-          <h2>FLIGHT</h2>
+          <h2>BOARDING PASS</h2>
 
           <div className="routeRow">
             <div>
@@ -61,15 +59,21 @@ const EditFlight = () => {
             </div>
           </div>
 
-          <div className="flightNumber">
-            {flightNumber}
+          <div className="flightNumber">{flightNumber}</div>
+
+          <div className="seatInfo">
+            {letter && seat ? (
+              <div className="seatValue">{letter + seat}</div>
+            ) : (
+              <div className="seatPlaceholder">Select a seat</div>
+            )}
           </div>
         </div>
       </div>
 
       {/* 🎫 RIGHT SIDE */}
       <div className="BoardingRight">
-        <h2>BOARDING PASS</h2>
+        <h2>SELECT YOUR SEAT</h2>
 
         <div className="field">
           <label>Seat Letter</label>
@@ -88,21 +92,27 @@ const EditFlight = () => {
           <InputNumber
             min={1}
             max={65}
-            onChange={(v) => setSeat(v)}
             value={seat}
+            onChange={(v) => setSeat(v)}
+            inputMode="numeric"
+            pattern="[0-9]*"
           />
         </div>
 
-        <div className="preview">
-          {letter && seat && (
-            <span>
-              Seat: <b>{letter + seat}</b>
-            </span>
-          )}
+        {/* 🪑 BIG SEAT DISPLAY */}
+        <div className="seatPreview">
+          {letter && seat && <span className="seatBig">{letter + seat}</span>}
         </div>
 
+        {/* 🔘 SIMPLE CONFIRM BUTTON */}
         {letter && seat && (
-          <Button type="primary" size="large" block onClick={updateSeat}>
+          <Button
+            type="primary"
+            size="large"
+            block
+            className="confirmBtn"
+            onClick={updateSeat}
+          >
             Confirm Seat
           </Button>
         )}

@@ -92,9 +92,9 @@ const ViewFlight = () => {
 
   return (
     <div className="FlightView">
-      <h2>✈️ Seat Map</h2>
+      <h2>✈️ BumblePlane ✈️</h2>
 
-      <div className="plane">
+      <div className="seat_plane">
         {Array.from({ length: NUM_OF_ROWS }, (_, i) => {
           const row = i + 1;
 

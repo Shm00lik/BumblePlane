@@ -1,24 +1,30 @@
 .FlightView {
   padding: 10px;
+  background: #0d0f14;
+  min-height: 100dvh;
+  color: #e5e7eb;
 
   h2 {
     text-align: center;
     margin-bottom: 10px;
+    color: #F5D409;
   }
 }
 
-.plane {
+.seat_plane {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+/* ROW */
 .row {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* BLOCKS */
 .blockWrapper {
   display: flex;
   align-items: center;
@@ -33,49 +39,49 @@
 /* aisle numbers */
 .rowNumber {
   font-size: 10px;
-  color: #999;
+  color: #6b7280;
   min-width: 20px;
   text-align: center;
-  font-weight: 500;
 }
 
-/* spacing between seat groups (aisle feel) */
-.blockWrapper:not(:last-child) {
-  margin-right: 10px;
-}
-
+/* SEATS */
 .seat {
   width: 30px;
   height: 40px;
   border-radius: 8px;
-  background: #f0f2f5;
+
+  background: #1a1f2b;
+  border: 1px solid #2a2f3a;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   transition: 0.2s;
 }
 
 .seat:hover {
   transform: scale(1.1);
-  background: #e6f4ff;
+  border-color: #F5D409;
 }
 
 .seatLabel {
   font-size: 9px;
-  color: #666;
+  color: #6b7280;
 }
 
-/* YOUR seat */
+/* YOUR SEAT */
 .seat.me {
-  background: #1677ff;
-  color: white;
+  background: #F5D409;
+  color: #111;
+  border-color: #F5D409;
+  box-shadow: 0 0 12px rgba(245, 212, 9, 0.6);
   transform: scale(1.15);
-  box-shadow: 0 0 12px rgba(22, 119, 255, 0.8);
 }
 
-/* nearby seats */
+/* NEARBY */
 .seat.near {
-  background: #e6f4ff;
-  box-shadow: 0 0 6px rgba(22, 119, 255, 0.4);
+  background: rgba(245, 212, 9, 0.12);
+  border-color: rgba(245, 212, 9, 0.4);
 }

@@ -1,79 +1,100 @@
 .BoardingPage {
   display: flex;
-  max-width: 900px;
-  margin: auto;
-  margin-top: 40px;
-  border-radius: 20px;
+
+  width: 100dvw;
+  height: 100dvh;
+
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-  background: white;
+  background: #0d0f14;
+  color: #e5e7eb;
 }
 
-/* ✈️ LEFT SIDE */
+/* ✈️ LEFT BOARDING PASS */
 .BoardingLeft {
   flex: 1;
-  background: linear-gradient(135deg, #2f6bff, #6ea8ff);
-  color: white;
-  padding: 30px;
+
+  background: linear-gradient(135deg, #1a1f2b, #0f121a);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  padding: 30px;
+
   .planeGraphic {
-    font-size: 55px;
+    font-size: 60px;
     margin-bottom: 15px;
+    color: #f5d409;
+  }
+
+  h2 {
+    color: #f5d409;
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 2px;
   }
 
   .route {
     text-align: center;
+    margin-top: 10px;
   }
 
   .routeRow {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 18px;
     margin-top: 10px;
   }
 
   .airport {
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 30px;
+    font-weight: 700;
+    color: #f5d409;
   }
 
   p {
     margin: 0;
     font-size: 10px;
-    opacity: 0.8;
+    color: #9ca3af;
   }
 
   .arrow {
     font-size: 20px;
+    color: #9ca3af;
   }
 
   .flightNumber {
     margin-top: 15px;
     font-size: 14px;
-    opacity: 0.9;
+    color: #9ca3af;
     letter-spacing: 2px;
   }
 }
 
-/* 🎫 RIGHT SIDE */
+/* 🎫 RIGHT SIDE FORM */
 .BoardingRight {
   flex: 1;
+
+  background: #111522;
+
   padding: 30px;
+
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  gap: 18px;
 
   h2 {
     text-align: center;
+    color: #f5d409;
     letter-spacing: 2px;
+    margin-bottom: 10px;
   }
 }
 
+/* fields */
 .field {
   display: flex;
   flex-direction: column;
@@ -81,12 +102,55 @@
 
   label {
     font-size: 12px;
-    color: #666;
+    color: #9ca3af;
   }
 }
 
-.preview {
+/* 🪑 BIG SEAT */
+.seatPreview {
   text-align: center;
-  font-size: 16px;
-  margin-top: 10px;
+  margin: 10px 0;
+}
+
+.seatBig {
+  font-size: 56px;
+  font-weight: 800;
+  color: #f5d409;
+
+  letter-spacing: 2px;
+
+  text-shadow: 0 0 18px rgba(245, 212, 9, 0.35);
+}
+
+/* 🔘 BUTTON */
+.confirmBtn {
+  height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+
+  background: #f5d409 !important;
+  border: none !important;
+  color: #111 !important;
+
+  border-radius: 12px;
+}
+
+.seatInfo {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(245, 212, 9, 0.2);
+  text-align: center;
+}
+
+.seatValue {
+  font-size: 28px;
+  font-weight: 800;
+  color: #f5d409;
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px rgba(245, 212, 9, 0.5);
+}
+
+.seatPlaceholder {
+  font-size: 12px;
+  color: #6b7280;
 }

@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;600;700;800&display=swap");
 
 * {
-    font-family: "Heebo";
+  font-family: "Heebo";
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  background: #0d0f14;
+  overflow-x: hidden; /* 🚫 kills white side swipe */
 }
